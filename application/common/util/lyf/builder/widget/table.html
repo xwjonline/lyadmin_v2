@@ -1,0 +1,36 @@
+<case value="table">
+    <div class="form-group item_{$[type]form.name} {$[type]form.extra.class|default=''}">
+        <label class="left control-label">{$[type]form.title}：</label>
+        <div class="right">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <foreach name="[type]form.extra.self" item="at">
+                            <th>{$at.title}</th>
+                        </foreach>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        if(!is_array($[type]form['value'])){
+                            $[type]form['value'] = json_decode($[type]form['value'], true);
+                        }
+                    ?>
+                    <foreach name="[type]form.value" item="t1">
+                        <tr>
+                            <foreach name="[type]form.extra.self" item="at">
+                                <td>
+                                    <?php echo $t1[$at['name']]; ?>
+                                    <input type="hidden" name="{$[type]form.name}[{$key}][{$at['name']}]" value="<?php echo $t1[$at['name']]; ?>">
+                                </td>
+                            </foreach>
+                        </tr>
+                    </foreach>
+                </tbody>
+            </table>
+            <notempty name="[type]form.tip">
+                <span class="check-tips small">{$[type]form.tip|default=''}</span>
+            </notempty>
+        </div>
+    </div>
+</case>
